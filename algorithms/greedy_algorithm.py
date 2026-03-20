@@ -22,6 +22,8 @@ def greedy_algorithm(
 
     # print(f"\nK: iteration\n")
     for node in V - S:
+      
+      pc_Sj = None
 
       if case == 1:
         # case 1: S in V
@@ -38,14 +40,14 @@ def greedy_algorithm(
 
       # tie-breaker - if two nodes give the same best_pc
       # get the one with higher degree
-      deg = G.degree(node)
+      # deg = G.degree(node)
 
       # argmin
-      if pc_Sj < best_pc or (pc_Sj == best_pc and deg > best_deg):
+      if pc_Sj is not None and pc_Sj < best_pc:
         best_pc = pc_Sj
         best_node = node
-        best_deg = deg
-        print(f"best node: {best_node} and best gain: {best_pc}")
+        # best_deg = deg
+        # print(f"best node: {best_node} and best gain: {best_pc}")
 
     if best_node is None:
       # No feasible solution

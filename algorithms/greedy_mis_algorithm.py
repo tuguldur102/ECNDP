@@ -5,7 +5,7 @@ def greedy_mis_algorithm(
     G: nx.Graph, terminals: list[int], 
     k: int, case: int, mis_trails: int = 30) -> tuple[set, list[int]]:
   
-  # If graph is too big, use sparse representation
+  # If graph is too big, sparse representation
   # for better memory usage
   
   S : set = set()

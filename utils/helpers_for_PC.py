@@ -12,7 +12,7 @@ def bfs(G: nx.Graph, source: int, visited: set[int]) -> list[int]:
 
   while len(queue) > 0:
 
-    v = queue.pop(0)
+    v = queue.popleft()
     res.append(v)
     # print(f"queue: {v}")
 
