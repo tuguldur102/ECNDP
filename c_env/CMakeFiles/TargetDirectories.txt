@@ -1,0 +1,3 @@
+/home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/CMakeFiles/ecndp.dir
+/home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/CMakeFiles/edit_cache.dir
+/home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/CMakeFiles/rebuild_cache.dir
