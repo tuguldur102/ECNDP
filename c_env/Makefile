@@ -153,6 +153,102 @@ algorithms/exact.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ecndp.dir/build.make CMakeFiles/ecndp.dir/algorithms/exact.cpp.s
 .PHONY : algorithms/exact.cpp.s
 
+algorithms/greedy_empty_set.o: algorithms/greedy_empty_set.cpp.o
+.PHONY : algorithms/greedy_empty_set.o
+
+# target to build an object file
+algorithms/greedy_empty_set.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ecndp.dir/build.make CMakeFiles/ecndp.dir/algorithms/greedy_empty_set.cpp.o
+.PHONY : algorithms/greedy_empty_set.cpp.o
+
+algorithms/greedy_empty_set.i: algorithms/greedy_empty_set.cpp.i
+.PHONY : algorithms/greedy_empty_set.i
+
+# target to preprocess a source file
+algorithms/greedy_empty_set.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ecndp.dir/build.make CMakeFiles/ecndp.dir/algorithms/greedy_empty_set.cpp.i
+.PHONY : algorithms/greedy_empty_set.cpp.i
+
+algorithms/greedy_empty_set.s: algorithms/greedy_empty_set.cpp.s
+.PHONY : algorithms/greedy_empty_set.s
+
+# target to generate assembly for a file
+algorithms/greedy_empty_set.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ecndp.dir/build.make CMakeFiles/ecndp.dir/algorithms/greedy_empty_set.cpp.s
+.PHONY : algorithms/greedy_empty_set.cpp.s
+
+algorithms/greedy_mis.o: algorithms/greedy_mis.cpp.o
+.PHONY : algorithms/greedy_mis.o
+
+# target to build an object file
+algorithms/greedy_mis.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ecndp.dir/build.make CMakeFiles/ecndp.dir/algorithms/greedy_mis.cpp.o
+.PHONY : algorithms/greedy_mis.cpp.o
+
+algorithms/greedy_mis.i: algorithms/greedy_mis.cpp.i
+.PHONY : algorithms/greedy_mis.i
+
+# target to preprocess a source file
+algorithms/greedy_mis.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ecndp.dir/build.make CMakeFiles/ecndp.dir/algorithms/greedy_mis.cpp.i
+.PHONY : algorithms/greedy_mis.cpp.i
+
+algorithms/greedy_mis.s: algorithms/greedy_mis.cpp.s
+.PHONY : algorithms/greedy_mis.s
+
+# target to generate assembly for a file
+algorithms/greedy_mis.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ecndp.dir/build.make CMakeFiles/ecndp.dir/algorithms/greedy_mis.cpp.s
+.PHONY : algorithms/greedy_mis.cpp.s
+
+algorithms/improvement_condition.o: algorithms/improvement_condition.cpp.o
+.PHONY : algorithms/improvement_condition.o
+
+# target to build an object file
+algorithms/improvement_condition.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ecndp.dir/build.make CMakeFiles/ecndp.dir/algorithms/improvement_condition.cpp.o
+.PHONY : algorithms/improvement_condition.cpp.o
+
+algorithms/improvement_condition.i: algorithms/improvement_condition.cpp.i
+.PHONY : algorithms/improvement_condition.i
+
+# target to preprocess a source file
+algorithms/improvement_condition.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ecndp.dir/build.make CMakeFiles/ecndp.dir/algorithms/improvement_condition.cpp.i
+.PHONY : algorithms/improvement_condition.cpp.i
+
+algorithms/improvement_condition.s: algorithms/improvement_condition.cpp.s
+.PHONY : algorithms/improvement_condition.s
+
+# target to generate assembly for a file
+algorithms/improvement_condition.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ecndp.dir/build.make CMakeFiles/ecndp.dir/algorithms/improvement_condition.cpp.s
+.PHONY : algorithms/improvement_condition.cpp.s
+
+algorithms/local_search.o: algorithms/local_search.cpp.o
+.PHONY : algorithms/local_search.o
+
+# target to build an object file
+algorithms/local_search.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ecndp.dir/build.make CMakeFiles/ecndp.dir/algorithms/local_search.cpp.o
+.PHONY : algorithms/local_search.cpp.o
+
+algorithms/local_search.i: algorithms/local_search.cpp.i
+.PHONY : algorithms/local_search.i
+
+# target to preprocess a source file
+algorithms/local_search.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ecndp.dir/build.make CMakeFiles/ecndp.dir/algorithms/local_search.cpp.i
+.PHONY : algorithms/local_search.cpp.i
+
+algorithms/local_search.s: algorithms/local_search.cpp.s
+.PHONY : algorithms/local_search.s
+
+# target to generate assembly for a file
+algorithms/local_search.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ecndp.dir/build.make CMakeFiles/ecndp.dir/algorithms/local_search.cpp.s
+.PHONY : algorithms/local_search.cpp.s
+
 algorithms/main.o: algorithms/main.cpp.o
 .PHONY : algorithms/main.o
 
@@ -213,6 +309,18 @@ help:
 	@echo "... algorithms/exact.o"
 	@echo "... algorithms/exact.i"
 	@echo "... algorithms/exact.s"
+	@echo "... algorithms/greedy_empty_set.o"
+	@echo "... algorithms/greedy_empty_set.i"
+	@echo "... algorithms/greedy_empty_set.s"
+	@echo "... algorithms/greedy_mis.o"
+	@echo "... algorithms/greedy_mis.i"
+	@echo "... algorithms/greedy_mis.s"
+	@echo "... algorithms/improvement_condition.o"
+	@echo "... algorithms/improvement_condition.i"
+	@echo "... algorithms/improvement_condition.s"
+	@echo "... algorithms/local_search.o"
+	@echo "... algorithms/local_search.i"
+	@echo "... algorithms/local_search.s"
 	@echo "... algorithms/main.o"
 	@echo "... algorithms/main.i"
 	@echo "... algorithms/main.s"

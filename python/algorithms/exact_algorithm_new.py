@@ -1,5 +1,9 @@
+import math
+import time
 import networkx as nx
 import pulp as pl
+from tqdm import tqdm
+
 
 def _ordered_nodes(nodes):
   try:
@@ -7,13 +11,15 @@ def _ordered_nodes(nodes):
   except TypeError:
     return list(nodes)
 
+
 def build_ecndp_model_pulp(
   G: nx.Graph,
   terminals,
   K: int,
   allow_terminal_deletion: bool = True,
   include_diagonal_in_objective: bool = False,
-  model_name: str = "ECNDP"
+  model_name: str = "ECNDP",
+  show_progress: bool = False
 ):
   if nx.number_of_selfloops(G) > 0:
     raise ValueError("The formulation assumes a simple graph (no self-loops).")
@@ -31,6 +37,30 @@ def build_ecndp_model_pulp(
   model = pl.LpProblem(model_name, pl.LpMinimize)
 
   node_to_position = {node: position for position, node in enumerate(V)}
+
+  num_nodes = len(V)
+  num_edges = G.number_of_edges()
+  num_pairs = math.comb(num_nodes, 2) if num_nodes >= 2 else 0
+  num_triples = math.comb(num_nodes, 3) if num_nodes >= 3 else 0
+
+  total_progress_steps = (
+    num_pairs +               # x variable creation
+    num_edges +               # edge constraints
+    2 * num_pairs +           # upper bound constraints
+    3 * num_triples           # transitivity constraints
+  )
+
+  progress_bar = None
+  if show_progress:
+    print(f"Building model with {total_progress_steps} progress steps...")
+    progress_bar = tqdm(
+      total=total_progress_steps,
+      desc="Building ECNDP model",
+      unit="step",
+      leave=True,
+      dynamic_ncols=True,
+      miniters=1
+    )
 
   # Deletion variables: s_i = 1 if vertex i is removed
   s = {
@@ -55,12 +85,10 @@ def build_ecndp_model_pulp(
         upBound=1,
         cat=pl.LpBinary
       )
+      if progress_bar is not None:
+        progress_bar.update(1)
 
   def X(node_i, node_j):
-    """
-    Return x_ij for unordered pairs.
-    For diagonal terms, return the expression x_ii = 1 - s_i.
-    """
     if node_i == node_j:
       return 1 - s[node_i]
 
@@ -109,6 +137,9 @@ def build_ecndp_model_pulp(
       f"edge_lb_{left_position}_{right_position}"
     )
 
+    if progress_bar is not None:
+      progress_bar.update(1)
+
   # Upper bounds: x_ij <= 1 - s_i and x_ij <= 1 - s_j for all i < j
   for left_position in range(len(V)):
     left_node = V[left_position]
@@ -124,11 +155,10 @@ def build_ecndp_model_pulp(
         f"upper_j_{left_position}_{right_position}"
       )
 
+      if progress_bar is not None:
+        progress_bar.update(2)
+
   # Transitivity constraints
-  # For each unordered triple {i, j, k}, add the 3 equivalent forms:
-  # x_ik >= x_ij + x_jk - 1
-  # x_ij >= x_ik + x_jk - 1
-  # x_jk >= x_ij + x_ik - 1
   for first_position in range(len(V)):
     for second_position in range(first_position + 1, len(V)):
       for third_position in range(second_position + 1, len(V)):
@@ -151,6 +181,12 @@ def build_ecndp_model_pulp(
           X(first_node, second_node) + X(first_node, third_node) - 1,
           f"transitivity_3_{first_position}_{second_position}_{third_position}"
         )
+
+        if progress_bar is not None:
+          progress_bar.update(3)
+
+  if progress_bar is not None:
+    progress_bar.close()
 
   return model, X, s
 
@@ -191,15 +227,21 @@ def solve_ecndp_pulp(
   include_diagonal_in_objective: bool = False,
   solver_name: str = "cbc",
   time_limit: float | None = None,
-  verbose: bool = False
+  verbose: bool = False,
+  show_progress: bool = False
 ):
+  build_start_time = time.perf_counter()
+
   model, X, s = build_ecndp_model_pulp(
     G=G,
     terminals=terminals,
     K=K,
     allow_terminal_deletion=allow_terminal_deletion,
-    include_diagonal_in_objective=include_diagonal_in_objective
+    include_diagonal_in_objective=include_diagonal_in_objective,
+    show_progress=show_progress
   )
+
+  build_seconds = time.perf_counter() - build_start_time
 
   solver = get_pulp_solver(
     solver_name=solver_name,
@@ -207,7 +249,10 @@ def solve_ecndp_pulp(
     msg=verbose
   )
 
+  solve_start_time = time.perf_counter()
   status_code = model.solve(solver)
+  solve_seconds = time.perf_counter() - solve_start_time
+
   status_string = pl.LpStatus[status_code]
 
   if status_string not in {"Optimal", "Feasible"}:
@@ -217,6 +262,8 @@ def solve_ecndp_pulp(
       "deleted_nodes": None,
       "x": None,
       "components_after_deletion": None,
+      "build_seconds": build_seconds,
+      "solve_seconds": solve_seconds,
       "model": model
     }
 
@@ -251,5 +298,7 @@ def solve_ecndp_pulp(
     "deleted_nodes": deleted_nodes,
     "x": x_solution,
     "components_after_deletion": components_after_deletion,
+    "build_seconds": build_seconds,
+    "solve_seconds": solve_seconds,
     "model": model
   }

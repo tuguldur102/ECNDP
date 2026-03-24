@@ -111,11 +111,71 @@ CMakeFiles/ecndp.dir/algorithms/exact.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ecndp.dir/algorithms/exact.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/algorithms/exact.cpp -o CMakeFiles/ecndp.dir/algorithms/exact.cpp.s
 
+CMakeFiles/ecndp.dir/algorithms/local_search.cpp.o: CMakeFiles/ecndp.dir/flags.make
+CMakeFiles/ecndp.dir/algorithms/local_search.cpp.o: algorithms/local_search.cpp
+CMakeFiles/ecndp.dir/algorithms/local_search.cpp.o: CMakeFiles/ecndp.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/ecndp.dir/algorithms/local_search.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ecndp.dir/algorithms/local_search.cpp.o -MF CMakeFiles/ecndp.dir/algorithms/local_search.cpp.o.d -o CMakeFiles/ecndp.dir/algorithms/local_search.cpp.o -c /home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/algorithms/local_search.cpp
+
+CMakeFiles/ecndp.dir/algorithms/local_search.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ecndp.dir/algorithms/local_search.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/algorithms/local_search.cpp > CMakeFiles/ecndp.dir/algorithms/local_search.cpp.i
+
+CMakeFiles/ecndp.dir/algorithms/local_search.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ecndp.dir/algorithms/local_search.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/algorithms/local_search.cpp -o CMakeFiles/ecndp.dir/algorithms/local_search.cpp.s
+
+CMakeFiles/ecndp.dir/algorithms/improvement_condition.cpp.o: CMakeFiles/ecndp.dir/flags.make
+CMakeFiles/ecndp.dir/algorithms/improvement_condition.cpp.o: algorithms/improvement_condition.cpp
+CMakeFiles/ecndp.dir/algorithms/improvement_condition.cpp.o: CMakeFiles/ecndp.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/ecndp.dir/algorithms/improvement_condition.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ecndp.dir/algorithms/improvement_condition.cpp.o -MF CMakeFiles/ecndp.dir/algorithms/improvement_condition.cpp.o.d -o CMakeFiles/ecndp.dir/algorithms/improvement_condition.cpp.o -c /home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/algorithms/improvement_condition.cpp
+
+CMakeFiles/ecndp.dir/algorithms/improvement_condition.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ecndp.dir/algorithms/improvement_condition.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/algorithms/improvement_condition.cpp > CMakeFiles/ecndp.dir/algorithms/improvement_condition.cpp.i
+
+CMakeFiles/ecndp.dir/algorithms/improvement_condition.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ecndp.dir/algorithms/improvement_condition.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/algorithms/improvement_condition.cpp -o CMakeFiles/ecndp.dir/algorithms/improvement_condition.cpp.s
+
+CMakeFiles/ecndp.dir/algorithms/greedy_empty_set.cpp.o: CMakeFiles/ecndp.dir/flags.make
+CMakeFiles/ecndp.dir/algorithms/greedy_empty_set.cpp.o: algorithms/greedy_empty_set.cpp
+CMakeFiles/ecndp.dir/algorithms/greedy_empty_set.cpp.o: CMakeFiles/ecndp.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/ecndp.dir/algorithms/greedy_empty_set.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ecndp.dir/algorithms/greedy_empty_set.cpp.o -MF CMakeFiles/ecndp.dir/algorithms/greedy_empty_set.cpp.o.d -o CMakeFiles/ecndp.dir/algorithms/greedy_empty_set.cpp.o -c /home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/algorithms/greedy_empty_set.cpp
+
+CMakeFiles/ecndp.dir/algorithms/greedy_empty_set.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ecndp.dir/algorithms/greedy_empty_set.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/algorithms/greedy_empty_set.cpp > CMakeFiles/ecndp.dir/algorithms/greedy_empty_set.cpp.i
+
+CMakeFiles/ecndp.dir/algorithms/greedy_empty_set.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ecndp.dir/algorithms/greedy_empty_set.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/algorithms/greedy_empty_set.cpp -o CMakeFiles/ecndp.dir/algorithms/greedy_empty_set.cpp.s
+
+CMakeFiles/ecndp.dir/algorithms/greedy_mis.cpp.o: CMakeFiles/ecndp.dir/flags.make
+CMakeFiles/ecndp.dir/algorithms/greedy_mis.cpp.o: algorithms/greedy_mis.cpp
+CMakeFiles/ecndp.dir/algorithms/greedy_mis.cpp.o: CMakeFiles/ecndp.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/ecndp.dir/algorithms/greedy_mis.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ecndp.dir/algorithms/greedy_mis.cpp.o -MF CMakeFiles/ecndp.dir/algorithms/greedy_mis.cpp.o.d -o CMakeFiles/ecndp.dir/algorithms/greedy_mis.cpp.o -c /home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/algorithms/greedy_mis.cpp
+
+CMakeFiles/ecndp.dir/algorithms/greedy_mis.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ecndp.dir/algorithms/greedy_mis.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/algorithms/greedy_mis.cpp > CMakeFiles/ecndp.dir/algorithms/greedy_mis.cpp.i
+
+CMakeFiles/ecndp.dir/algorithms/greedy_mis.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ecndp.dir/algorithms/greedy_mis.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/algorithms/greedy_mis.cpp -o CMakeFiles/ecndp.dir/algorithms/greedy_mis.cpp.s
+
 # Object files for target ecndp
 ecndp_OBJECTS = \
 "CMakeFiles/ecndp.dir/algorithms/main.cpp.o" \
 "CMakeFiles/ecndp.dir/algorithms/utils.cpp.o" \
-"CMakeFiles/ecndp.dir/algorithms/exact.cpp.o"
+"CMakeFiles/ecndp.dir/algorithms/exact.cpp.o" \
+"CMakeFiles/ecndp.dir/algorithms/local_search.cpp.o" \
+"CMakeFiles/ecndp.dir/algorithms/improvement_condition.cpp.o" \
+"CMakeFiles/ecndp.dir/algorithms/greedy_empty_set.cpp.o" \
+"CMakeFiles/ecndp.dir/algorithms/greedy_mis.cpp.o"
 
 # External object files for target ecndp
 ecndp_EXTERNAL_OBJECTS =
@@ -123,6 +183,10 @@ ecndp_EXTERNAL_OBJECTS =
 ecndp: CMakeFiles/ecndp.dir/algorithms/main.cpp.o
 ecndp: CMakeFiles/ecndp.dir/algorithms/utils.cpp.o
 ecndp: CMakeFiles/ecndp.dir/algorithms/exact.cpp.o
+ecndp: CMakeFiles/ecndp.dir/algorithms/local_search.cpp.o
+ecndp: CMakeFiles/ecndp.dir/algorithms/improvement_condition.cpp.o
+ecndp: CMakeFiles/ecndp.dir/algorithms/greedy_empty_set.cpp.o
+ecndp: CMakeFiles/ecndp.dir/algorithms/greedy_mis.cpp.o
 ecndp: CMakeFiles/ecndp.dir/build.make
 ecndp: /home/tuguldur/Downloads/ortools/or-tools_x86_64_Ubuntu-24.04_cpp_v9.15.6755/lib/libortools.so.9.15.6755
 ecndp: /home/tuguldur/Downloads/ortools/or-tools_x86_64_Ubuntu-24.04_cpp_v9.15.6755/lib/libbz2.so
@@ -224,7 +288,7 @@ ecndp: /home/tuguldur/Downloads/ortools/or-tools_x86_64_Ubuntu-24.04_cpp_v9.15.6
 ecndp: /home/tuguldur/Downloads/ortools/or-tools_x86_64_Ubuntu-24.04_cpp_v9.15.6755/lib/libhighs.so.1.12.0
 ecndp: /home/tuguldur/Downloads/ortools/or-tools_x86_64_Ubuntu-24.04_cpp_v9.15.6755/lib/libscip.so.10.0.0
 ecndp: CMakeFiles/ecndp.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable ecndp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable ecndp"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ecndp.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

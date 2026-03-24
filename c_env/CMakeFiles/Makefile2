@@ -81,12 +81,12 @@ clean: CMakeFiles/ecndp.dir/clean
 CMakeFiles/ecndp.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ecndp.dir/build.make CMakeFiles/ecndp.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ecndp.dir/build.make CMakeFiles/ecndp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/CMakeFiles --progress-num=1,2,3,4 "Built target ecndp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target ecndp"
 .PHONY : CMakeFiles/ecndp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/ecndp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/CMakeFiles 8
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/ecndp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/c_env/CMakeFiles 0
 .PHONY : CMakeFiles/ecndp.dir/rule
