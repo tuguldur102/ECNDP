@@ -159,6 +159,6 @@ def extended_critical_node_mis(
     if curr_pc < best_pc:
       best_pc = curr_pc
       best_S = set(curr_S)
-      print(f"Refined PC: {best_pc}\n")
+      # print(f"Refined PC: {best_pc}\n")
 
   return best_S, best_pc

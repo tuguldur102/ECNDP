@@ -1,0 +1,41 @@
+case,algo,terminals,non_terminals,K,obj,time
+
+1,Greedy MIS - no ls,15,36,10,1.0,2.49252
+1,Greedy MIS - no ls,15,36,8,3.0,2.58876
+1,Greedy MIS - no ls,15,36,5,9.0,2.66760
+1,Greedy MIS - no ls,25,26,15,2.0,2.21943
+1,Greedy MIS - no ls,25,26,10,11.0,2.49963
+1,Greedy MIS - no ls,25,26,7,26.0,2.62593
+1,Greedy MIS - no ls,38,13,20,5.0,1.80704
+1,Greedy MIS - no ls,38,13,15,13.0,2.23582
+1,Greedy MIS - no ls,38,13,10,42.0,2.50048
+2,Greedy MIS - no ls,15,36,20,14.0,0.44731
+2,Greedy MIS - no ls,15,36,15,14.0,0.84915
+2,Greedy MIS - no ls,15,36,10,14.0,1.12357
+2,Greedy MIS - no ls,25,26,15,75.0,0.22230
+2,Greedy MIS - no ls,25,26,10,75.0,0.50888
+2,Greedy MIS - no ls,25,26,7,78.0,0.62528
+2,Greedy MIS - no ls,38,13,10,178.0,0.00861
+2,Greedy MIS - no ls,38,13,8,178.0,0.02935
+2,Greedy MIS - no ls,38,13,5,192.0,0.10837
+
+1,Greedy MIS - ls,15,36,10,1.0,6.09917
+1,Greedy MIS - ls,15,36,8,3.0,5.61601
+1,Greedy MIS - ls,15,36,5,9.0,4.71968
+1,Greedy MIS - ls,25,26,15,2.0,7.03694
+1,Greedy MIS - ls,25,26,10,10.0,6.18298
+1,Greedy MIS - ls,25,26,7,26.0,5.36397
+1,Greedy MIS - ls,38,13,20,5.0,7.45700
+1,Greedy MIS - ls,38,13,15,13.0,7.19549
+1,Greedy MIS - ls,38,13,10,42.0,6.20778
+2,Greedy MIS - ls,15,36,20,14.0,3.19989
+2,Greedy MIS - ls,15,36,15,14.0,3.61251
+2,Greedy MIS - ls,15,36,10,14.0,3.47480
+2,Greedy MIS - ls,25,26,15,75.0,1.54317
+2,Greedy MIS - ls,25,26,10,75.0,1.89512
+2,Greedy MIS - ls,25,26,7,78.0,1.78698
+2,Greedy MIS - ls,38,13,10,178.0,0.26859
+2,Greedy MIS - ls,38,13,8,178.0,0.30680
+2,Greedy MIS - ls,38,13,5,192.0,0.44274
+
+
