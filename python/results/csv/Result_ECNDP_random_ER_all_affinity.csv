@@ -1,0 +1,105 @@
+case,algo,terminals,non_terminals,K,obj,time
+2,Greedy ES - no ls,9,91,9,28.0,2.62446
+2,Greedy ES - ls,9,91,9,21.0,3.59850
+2,Greedy MIS - no ls,9,91,9,15.0,112.81863
+2,Greedy MIS - ls,9,91,9,11.0,229.51193
+2,Greedy affinity - no ls,9,91,9,36.0,0.00787
+2,Greedy affinity - ls,9,91,9,21.0,1.63649
+2,Greedy affinity cand - no ls,9,91,9,36.0,3.83787
+2,Greedy affinity cand - ls,9,91,9,21.0,5.69228
+2,Greedy ES - no ls,9,91,18,28.0,3.97174
+2,Greedy ES - ls,9,91,18,15.0,6.07548
+2,Greedy MIS - no ls,9,91,18,7.0,190.03530
+2,Greedy MIS - ls,9,91,18,2.0,271.67412
+2,Greedy affinity - no ls,9,91,18,36.0,0.00311
+2,Greedy affinity - ls,9,91,18,21.0,1.34482
+2,Greedy affinity cand - no ls,9,91,18,22.0,2.04073
+2,Greedy affinity cand - ls,9,91,18,22.0,3.38771
+2,Greedy ES - no ls,9,91,27,28.0,2.03022
+2,Greedy ES - ls,9,91,27,15.0,3.72462
+2,Greedy MIS - no ls,9,91,27,2.0,75.13619
+2,Greedy MIS - ls,9,91,27,2.0,256.66115
+2,Greedy affinity - no ls,9,91,27,36.0,0.00310
+2,Greedy affinity - ls,9,91,27,21.0,1.75288
+2,Greedy affinity cand - no ls,9,91,27,22.0,1.96595
+2,Greedy affinity cand - ls,9,91,27,11.0,3.70567
+2,Greedy ES - no ls,9,91,36,5.0,1.84044
+2,Greedy ES - ls,9,91,36,2.0,3.91016
+2,Greedy MIS - no ls,9,91,36,1.0,59.16912
+2,Greedy MIS - ls,9,91,36,1.0,265.82023
+2,Greedy affinity - no ls,9,91,36,36.0,0.00300
+2,Greedy affinity - ls,9,91,36,21.0,1.99559
+2,Greedy affinity cand - no ls,9,91,36,2.0,1.79990
+2,Greedy affinity cand - ls,9,91,36,2.0,3.84817
+2,Greedy ES - no ls,9,91,45,1.0,1.64848
+2,Greedy ES - ls,9,91,45,1.0,3.78574
+2,Greedy MIS - no ls,9,91,45,1.0,40.16322
+2,Greedy MIS - ls,9,91,45,1.0,256.17786
+2,Greedy affinity - no ls,9,91,45,36.0,0.00294
+2,Greedy affinity - ls,9,91,45,21.0,2.03272
+2,Greedy affinity cand - no ls,9,91,45,1.0,1.61165
+2,Greedy affinity cand - ls,9,91,45,1.0,3.78436
+2,Greedy ES - no ls,19,81,8,153.0,1.73505
+2,Greedy ES - ls,19,81,8,136.0,2.29814
+2,Greedy MIS - no ls,19,81,8,108.0,74.10971
+2,Greedy MIS - ls,19,81,8,105.0,134.59981
+2,Greedy affinity - no ls,19,81,8,171.0,0.00716
+2,Greedy affinity - ls,19,81,8,136.0,0.61561
+2,Greedy affinity cand - no ls,19,81,8,153.0,1.69027
+2,Greedy affinity cand - ls,19,81,8,136.0,2.29104
+2,Greedy ES - no ls,19,81,16,153.0,1.67346
+2,Greedy ES - ls,19,81,16,120.0,2.71404
+2,Greedy MIS - no ls,19,81,16,67.0,68.99532
+2,Greedy MIS - ls,19,81,16,58.0,176.00318
+2,Greedy affinity - no ls,19,81,16,171.0,0.00695
+2,Greedy affinity - ls,19,81,16,120.0,1.08234
+2,Greedy affinity cand - no ls,19,81,16,153.0,1.63970
+2,Greedy affinity cand - ls,19,81,16,105.0,2.66886
+2,Greedy ES - no ls,19,81,24,153.0,1.57719
+2,Greedy ES - ls,19,81,24,105.0,2.93806
+2,Greedy MIS - no ls,19,81,24,40.0,60.30688
+2,Greedy MIS - ls,19,81,24,30.0,199.69674
+2,Greedy affinity - no ls,19,81,24,171.0,0.00687
+2,Greedy affinity - ls,19,81,24,120.0,1.41548
+2,Greedy affinity cand - no ls,19,81,24,153.0,1.54934
+2,Greedy affinity cand - ls,19,81,24,51.0,2.91107
+2,Greedy ES - no ls,19,81,32,60.0,1.46269
+2,Greedy ES - ls,19,81,32,21.0,3.13937
+2,Greedy MIS - no ls,19,81,32,15.0,49.04580
+2,Greedy MIS - ls,19,81,32,11.0,211.35219
+2,Greedy affinity - no ls,19,81,32,171.0,0.00692
+2,Greedy affinity - ls,19,81,32,120.0,1.58531
+2,Greedy affinity cand - no ls,19,81,32,25.0,1.43937
+2,Greedy affinity cand - ls,19,81,32,19.0,3.10233
+2,Greedy ES - no ls,19,81,40,9.0,1.30903
+2,Greedy ES - ls,19,81,40,9.0,2.99231
+2,Greedy MIS - no ls,19,81,40,9.0,33.32533
+2,Greedy MIS - ls,19,81,40,9.0,199.30591
+2,Greedy affinity - no ls,19,81,40,153.0,0.00685
+2,Greedy affinity - ls,19,81,40,105.0,1.64871
+2,Greedy affinity cand - no ls,19,81,40,9.0,1.28891
+2,Greedy affinity cand - ls,19,81,40,9.0,2.99480
+2,Greedy ES - no ls,30,70,7,378.0,1.28425
+2,Greedy ES - ls,30,70,7,378.0,1.71691
+2,Greedy MIS - no ls,30,70,7,325.0,56.04196
+2,Greedy MIS - ls,30,70,7,325.0,100.99239
+2,Greedy affinity - no ls,30,70,7,435.0,0.01242
+2,Greedy affinity - ls,30,70,7,406.0,0.46324
+2,Greedy affinity cand - no ls,30,70,7,378.0,1.26689
+2,Greedy affinity cand - ls,30,70,7,325.0,1.71708
+2,Greedy ES - no ls,30,70,14,351.0,1.23163
+2,Greedy ES - ls,30,70,14,300.0,2.06035
+2,Greedy MIS - no ls,30,70,14,263.0,51.89949
+2,Greedy MIS - ls,30,70,14,263.0,25840.53711
+2,Greedy affinity - no ls,30,70,14,435.0,0.00924
+2,Greedy affinity - ls,30,70,14,325.0,0.62006
+2,Greedy affinity cand - no ls,30,70,14,351.0,0.91053
+2,Greedy affinity cand - ls,30,70,14,300.0,1.53979
+2,Greedy ES - no ls,30,70,21,351.0,0.91929
+2,Greedy ES - ls,30,70,21,276.0,1.78537
+2,Greedy MIS - no ls,30,70,21,166.0,45.04429
+2,Greedy MIS - ls,30,70,21,166.0,228.71062
+2,Greedy affinity - no ls,30,70,21,406.0,0.02854
+2,Greedy affinity - ls,30,70,21,300.0,2.49836
+2,Greedy affinity cand - no ls,30,70,21,351.0,2.72001
+2,Greedy affinity cand - ls,30,70,21,276.0,5.16722

@@ -110,7 +110,7 @@ def extended_critical_node_mis_candidate(
   best_S = None
   best_pc = float("inf")
 
-  for _ in tqdm(range(maxIter), desc="greedy MIS", total=maxIter):
+  for _ in range(maxIter):
 
     curr_S = None
 
