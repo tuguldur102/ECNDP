@@ -147,7 +147,7 @@ def draw_graph(G, terminals):
 
 def solve(G, k, terminals, case, algorithm, use_ls):
 
-  curr_pc = compute_pc(G, set(), terminal_nodes=terminals)
+  # curr_pc = compute_pc(G, set(), terminal_nodes=terminals)
 
   # algorithm
   maxIter = len(G.nodes())

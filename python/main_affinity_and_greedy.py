@@ -1,7 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 from algorithms.compute_PC import compute_pc
-from algorithms.greedy_affinity import extended_critical_node_terminal_affinity_simple
+from algorithms.greedy_affinity import extended_critical_node_terminal_affinity
 from algorithms.exact_algorithm_new import solve_ecndp_pulp
 from algorithms.greedy_empty_set import extended_critical_node_empty_set
 from algorithms.greedy_mis_candidate import extended_critical_node_mis_candidate
@@ -10,6 +10,7 @@ from utils.utils import assign_terminals_randomly, assign_terminals, create_cust
 from tqdm import tqdm
 import time
 import pandas as pd
+import os
 
 # Constants
 SEED = 1
@@ -37,7 +38,7 @@ CASE_1 = 1
 CASE_2 = 2
 
 CASES = [2]
-TAG = "affinity"
+TAG = "aff_only"
 # Random graph creations
 
 graph_models = {
@@ -83,53 +84,53 @@ for case_number in tqdm(CASES, desc="Cases", total=len(CASES)):
       # print("~~~~~~~~~~~~~~~~~~~~~~~~")
 
       # Greedy Empty Set
-      S_es_no_ls, best_pc_es_no_ls, total_time_es_no_ls = solve(
-        G_assigned, K, terminals_assigned, case=case_number, 
-        algorithm=extended_critical_node_empty_set, use_ls=False)
+      # S_es_no_ls, best_pc_es_no_ls, total_time_es_no_ls = solve(
+      #   G_assigned, K, terminals_assigned, case=case_number, 
+      #   algorithm=extended_critical_node_empty_set, use_ls=False)
       
-      S_es_ls, best_pc_es_ls, total_time_es_ls = solve(
-        G_assigned, K, terminals_assigned, case=case_number, 
-        algorithm=extended_critical_node_empty_set, use_ls=True)
+      # S_es_ls, best_pc_es_ls, total_time_es_ls = solve(
+      #   G_assigned, K, terminals_assigned, case=case_number, 
+      #   algorithm=extended_critical_node_empty_set, use_ls=True)
       
-      # Greedy MIS
-      S_mis_no_ls, best_pc_mis_no_ls, total_time_mis_no_ls = solve(
-        G_assigned, K, terminals_assigned, case=case_number, 
-        algorithm=extended_critical_node_mis_candidate, use_ls=False)
+      # # Greedy MIS
+      # S_mis_no_ls, best_pc_mis_no_ls, total_time_mis_no_ls = solve(
+      #   G_assigned, K, terminals_assigned, case=case_number, 
+      #   algorithm=extended_critical_node_mis_candidate, use_ls=False)
       
-      S_mis_ls, best_pc_mis_ls, total_time_mis_ls = solve(
-        G_assigned, K, terminals_assigned, case=case_number, 
-        algorithm=extended_critical_node_mis_candidate, use_ls=True)
+      # S_mis_ls, best_pc_mis_ls, total_time_mis_ls = solve(
+      #   G_assigned, K, terminals_assigned, case=case_number, 
+      #   algorithm=extended_critical_node_mis_candidate, use_ls=True)
       
       # Affinity
       S_aff_no_ls, best_pc_aff_no_ls, total_time_aff_no_ls = solve(
         G_assigned, K, terminals_assigned, case=case_number, 
-        algorithm=extended_critical_node_terminal_affinity_simple, use_ls=False)
+        algorithm=extended_critical_node_terminal_affinity, use_ls=False)
       
       S_aff_ls, best_pc_aff_ls, total_time_aff_ls = solve(
         G_assigned, K, terminals_assigned, case=case_number, 
-        algorithm=extended_critical_node_terminal_affinity_simple, use_ls=True)
+        algorithm=extended_critical_node_terminal_affinity, use_ls=True)
       
       # Affinity cand
-      _, best_pc_aff_cand_no_ls, total_time_aff_cand_no_ls = solve(
-        G_assigned, K, terminals_assigned, case=case_number, 
-        algorithm=extended_critical_node_terminal_affinity_candidate, use_ls=False)
+      # _, best_pc_aff_cand_no_ls, total_time_aff_cand_no_ls = solve(
+      #   G_assigned, K, terminals_assigned, case=case_number, 
+      #   algorithm=extended_critical_node_terminal_affinity_candidate, use_ls=False)
       
-      _, best_pc_aff_cand_ls, total_time_aff_cand_ls = solve(
-        G_assigned, K, terminals_assigned, case=case_number, 
-        algorithm=extended_critical_node_terminal_affinity_candidate, use_ls=True)
+      # _, best_pc_aff_cand_ls, total_time_aff_cand_ls = solve(
+      #   G_assigned, K, terminals_assigned, case=case_number, 
+      #   algorithm=extended_critical_node_terminal_affinity_candidate, use_ls=True)
       
       for algo, best_pc, total_time in [
-        (f'Greedy ES - no ls', best_pc_es_no_ls, total_time_es_no_ls),
-        (f'Greedy ES - ls', best_pc_es_ls, total_time_es_ls),
+        # (f'Greedy ES - no ls', best_pc_es_no_ls, total_time_es_no_ls),
+        # (f'Greedy ES - ls', best_pc_es_ls, total_time_es_ls),
 
-        (f'Greedy MIS - no ls', best_pc_mis_no_ls, total_time_mis_no_ls),
-        (f'Greedy MIS - ls', best_pc_mis_ls, total_time_mis_ls),
+        # (f'Greedy MIS - no ls', best_pc_mis_no_ls, total_time_mis_no_ls),
+        # (f'Greedy MIS - ls', best_pc_mis_ls, total_time_mis_ls),
 
         (f'Greedy affinity - no ls', best_pc_aff_no_ls, total_time_aff_no_ls),
         (f'Greedy affinity - ls', best_pc_aff_ls, total_time_aff_ls),
 
-        (f'Greedy affinity cand - no ls', best_pc_aff_cand_no_ls, total_time_aff_cand_no_ls),
-        (f'Greedy affinity cand - ls', best_pc_aff_cand_ls, total_time_aff_cand_ls),
+        # (f'Greedy affinity cand - no ls', best_pc_aff_cand_no_ls, total_time_aff_cand_no_ls),
+        # (f'Greedy affinity cand - ls', best_pc_aff_cand_ls, total_time_aff_cand_ls),
       ]:
 
         
@@ -145,8 +146,11 @@ for case_number in tqdm(CASES, desc="Cases", total=len(CASES)):
           'time': f"{total_time:.5f}",
         })
 
-      SAVE_PATH_ROOT = r"C:\Users\tuguldur\Documents\research\ECNDP (1)\Extended-Critical-Node-Detection-Problem\python\results\csv"
+      SAVE_PATH_ROOT = "/home/tuguldur/Development/Research/Dev/ECNDP/ECNDP/python/results/csv"
+
+      print(os.path.exists(SAVE_PATH_ROOT))
+
 
       df = pd.DataFrame(records)
-      df.to_csv(f"{SAVE_PATH_ROOT}/Result_ECNDP_random_ER_all_{TAG}.csv", index=False)
+      df.to_csv(f"{SAVE_PATH_ROOT}/Result_ECNDP_ER_all_{TAG}.csv", index=False)
 
