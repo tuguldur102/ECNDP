@@ -12,7 +12,7 @@ def greedy_mis_cand(
   # for better memory usage
 
   T : set = set(terminals)
-  V : set = set(G.nodes)
+  V : set = set(G.nodes())
 
   S : set = set()
   # pc_deltas : list[int] = []
