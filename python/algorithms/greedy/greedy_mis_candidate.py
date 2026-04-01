@@ -1,5 +1,5 @@
 from algorithms.compute_PC import compute_pc
-from algorithms.local_search import local_search_procedure
+from algorithms.local_search.local_search import local_search_procedure
 from utils.improvement_condition import improvement_condition
 import networkx as nx
 from tqdm import tqdm

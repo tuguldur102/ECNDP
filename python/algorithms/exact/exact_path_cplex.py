@@ -10,24 +10,15 @@ def normalize_pair(i, j):
 
 
 def path_signature(path):
-  """
-  The paper says: 'We denote a path P as the set of nodes in that path.'
-  So we store a path by its node set, not by edge order.
-  """
   return frozenset(path)
 
 
 class PathSeparationCallback(LazyConstraintCallback):
   """
-  Lazy callback implementing equation (12):
-
     x_ij + sum_{k in P} s_k >= 1
-
-  for terminal pairs (i, j) and paths P that were not yet considered.
   """
 
   def __call__(self):
-    # Current candidate solution values
     s_val = {
       i: self.get_values(self.s_idx[i])
       for i in self.nodes
@@ -37,9 +28,6 @@ class PathSeparationCallback(LazyConstraintCallback):
       for pair in self.term_pairs
     }
 
-    # Build residual graph after removing selected nodes.
-    # case = 1: terminals may be removed
-    # case = 2: terminals are protected (and also forced to s_t = 0 in model)
     residual = self.G.copy()
 
     if self.case == 1:
@@ -54,15 +42,12 @@ class PathSeparationCallback(LazyConstraintCallback):
 
     residual.remove_nodes_from(removed_nodes)
 
-    # Look for one violated path that has not been considered before.
     for pair in self.term_pairs:
       i, j = pair
 
-      # If x_ij = 1, the pair is already paid for in the objective.
       if x_val[pair] > 0.5:
         continue
 
-      # If one endpoint is not present, there is no surviving path.
       if i not in residual or j not in residual:
         continue
 
@@ -94,13 +79,9 @@ class PathSeparationCallback(LazyConstraintCallback):
       except (nx.NetworkXNoPath, nx.NodeNotFound):
         continue
 
+        return
 
 def add_path_constraint(cpx, s_idx, x_idx, pair, path):
-  """
-  Add one constraint of the form:
-
-    x_ij + sum_{k in P} s_k >= 1
-  """
   ind = [x_idx[pair]] + [s_idx[k] for k in path]
   val = [1.0] + [1.0] * len(path)
 
@@ -111,36 +92,7 @@ def add_path_constraint(cpx, s_idx, x_idx, pair, path):
   )
 
 
-def build_model_exact_from_excerpt(G, terminals, K, case, initial_paths=None):
-  """
-  Build the model from the paper excerpt:
-
-    min  sum x_ij
-    s.t. sum s_i <= K
-         x_ij + sum_{k in P} s_k >= 1   for selected initial paths only
-         s_i in {0,1}
-         x_ij in {0,1}
-
-  Missing path constraints are added lazily by callback.
-
-  Parameters
-  ----------
-  G : networkx.Graph
-    Undirected graph.
-  terminals : iterable
-    Terminal set T.
-  K : int
-    Budget.
-  case : int
-    case = 1 -> terminals are deletable
-    case = 2 -> terminals are protected
-  initial_paths : dict or None
-    Maps terminal pair (i, j) to a list of node-paths.
-    If None, one shortest path per terminal pair is used.
-  """
-  if case not in [1, 2]:
-    raise ValueError("case must be 1 or 2")
-
+def build_model_exact_from_excerpt(G, terminals, K, case):
   cpx = cplex.Cplex()
   cpx.objective.set_sense(cpx.objective.sense.minimize)
 
@@ -171,7 +123,7 @@ def build_model_exact_from_excerpt(G, terminals, K, case, initial_paths=None):
   s_idx = {i: cpx.variables.get_indices(f"s_{i}") for i in nodes}
   x_idx = {(i, j): cpx.variables.get_indices(f"x_{i}_{j}") for (i, j) in term_pairs}
 
-  # Budget constraint: sum s_i <= K
+  # Budget constraint
   cpx.linear_constraints.add(
     lin_expr=[cplex.SparsePair(
       ind=[s_idx[i] for i in nodes],
@@ -181,7 +133,7 @@ def build_model_exact_from_excerpt(G, terminals, K, case, initial_paths=None):
     rhs=[float(K)]
   )
 
-  # case = 2: terminals are protected, so force s_t = 0
+  # case = 2:
   if case == 2:
     for t in terminals:
       cpx.linear_constraints.add(
@@ -194,14 +146,13 @@ def build_model_exact_from_excerpt(G, terminals, K, case, initial_paths=None):
   known_paths = {pair: set() for pair in term_pairs}
 
   # Default initial path set: one shortest path per terminal pair
-  if initial_paths is None:
-    initial_paths = {}
-    for pair in term_pairs:
-      i, j = pair
-      try:
-        initial_paths[pair] = [nx.shortest_path(G, i, j)]
-      except (nx.NetworkXNoPath, nx.NodeNotFound):
-        initial_paths[pair] = []
+  initial_paths = {}
+  for pair in term_pairs:
+    i, j = pair
+    try:
+      initial_paths[pair] = [nx.shortest_path(G, i, j)]
+    except (nx.NetworkXNoPath, nx.NodeNotFound):
+      initial_paths[pair] = []
 
   # Add initial path constraints
   for raw_pair, paths in initial_paths.items():
@@ -231,16 +182,12 @@ def build_model_exact_from_excerpt(G, terminals, K, case, initial_paths=None):
   return cpx, s_idx, x_idx, known_paths
 
 
-def solve_exact_from_excerpt(G, terminals, K, case, initial_paths=None):
-  """
-  Build and solve the model.
-  """
+def solve_exact_from_excerpt(G, terminals, K, case):
   cpx, s_idx, x_idx, known_paths = build_model_exact_from_excerpt(
     G=G,
     terminals=terminals,
     K=K,
     case=case,
-    initial_paths=initial_paths
   )
 
   cpx.solve()
@@ -257,59 +204,53 @@ def solve_exact_from_excerpt(G, terminals, K, case, initial_paths=None):
   return cpx, s_sol, x_sol, known_paths
 
 
-def assign_terminals(G, terminal_number, seed):
-  nodes = list(G.nodes())
-  random.seed(seed)
+# def assign_terminals(G, terminal_number, seed):
+#   nodes = list(G.nodes())
+#   random.seed(seed)
 
-  terminals = random.sample(nodes, terminal_number)
+#   terminals = random.sample(nodes, terminal_number)
 
-  nx.set_node_attributes(G, False, "terminal")
-  for node in terminals:
-    G.nodes[node]["terminal"] = True
+#   nx.set_node_attributes(G, False, "terminal")
+#   for node in terminals:
+#     G.nodes[node]["terminal"] = True
 
-  terminal_nodes = [n for n, d in G.nodes(data=True) if d["terminal"]]
-  return G, terminal_nodes
+#   terminal_nodes = [n for n, d in G.nodes(data=True) if d["terminal"]]
+#   return G, terminal_nodes
 
 
-if __name__ == "__main__":
-  NODES = 100
-  graph_model = nx.erdos_renyi_graph(NODES, 0.046, seed=1)
+# if __name__ == "__main__":
+#   NODES = 100
+#   graph_model = nx.erdos_renyi_graph(NODES, 0.046, seed=1)
 
-  print("graph:", len(graph_model.nodes()), "nodes,", len(graph_model.edges()), "edges")
+#   print("graph:", len(graph_model.nodes()), "nodes,", len(graph_model.edges()), "edges")
 
-  terminal_count = 40
-  G_assigned, terminals_assigned = assign_terminals(graph_model, terminal_count, 1)
+#   terminal_count = 40
+#   G_assigned, terminals_assigned = assign_terminals(graph_model, terminal_count, 1)
 
-  K = 20
+#   K = 20
 
-  # Choose case:
-  # 1 -> terminals deletable
-  # 2 -> terminals protected
-  case = 1
+#   case = 1
 
-  # You can leave this as None.
-  # Then the code uses one shortest path per terminal pair initially.
-  initial_paths = None
+#   initial_paths = None
 
-  cpx, s_sol, x_sol, known_paths = solve_exact_from_excerpt(
-    G=G_assigned,
-    terminals=terminals_assigned,
-    K=K,
-    case=case,
-    initial_paths=initial_paths
-  )
+#   cpx, s_sol, x_sol, known_paths = solve_exact_from_excerpt(
+#     G=G_assigned,
+#     terminals=terminals_assigned,
+#     K=K,
+#     case=case
+#   )
 
-  print("Status:", cpx.solution.get_status_string())
-  print("Objective:", cpx.solution.get_objective_value())
+#   print("Status:", cpx.solution.get_status_string())
+#   print("Objective:", cpx.solution.get_objective_value())
 
-  # print("\ns solution")
-  # for i in sorted(s_sol):
-  #   print(f"s[{i}] = {s_sol[i]}")
+#   # print("\ns solution")
+#   # for i in sorted(s_sol):
+#   #   print(f"s[{i}] = {s_sol[i]}")
 
-  # print("\nx solution")
-  # for pair in sorted(x_sol):
-  #   print(f"x{pair} = {x_sol[pair]}")
+#   # print("\nx solution")
+#   # for pair in sorted(x_sol):
+#   #   print(f"x{pair} = {x_sol[pair]}")
 
-  # print("\nNumber of considered paths")
-  # for pair in sorted(known_paths):
-  #   print(f"{pair}: {len(known_paths[pair])}")
+#   # print("\nNumber of considered paths")
+#   # for pair in sorted(known_paths):
+#   #   print(f"{pair}: {len(known_paths[pair])}")

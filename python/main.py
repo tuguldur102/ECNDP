@@ -1,9 +1,9 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 from algorithms.compute_PC import compute_pc
-from algorithms.exact_algorithm_new import solve_ecndp_pulp
-from algorithms.greedy_empty_set import extended_critical_node_empty_set
-from algorithms.greedy_mis import extended_critical_node_mis
+from algorithms.exact.exact_path_cplex import solve_exact_from_excerpt
+from algorithms.greedy.greedy_empty_set import extended_critical_node_empty_set
+from algorithms.greedy.greedy_mis_candidate import extended_critical_node_mis_candidate
 from utils.utils import assign_terminals_randomly, assign_terminals, create_custom_graph_extreme, create_custom_graph_with_2_comps, create_mammals_graph, solve, solve_exact
 from tqdm import tqdm
 import time
@@ -29,7 +29,7 @@ K_BUDGETS = []
 CASE_1 = 1
 CASE_2 = 2
 
-CASES = [2, 1]
+CASES = [1, 2]
 # Random graph creations
 
 graph_models = {
@@ -85,16 +85,27 @@ for case_number in tqdm(CASES, desc="Cases", total=2):
       # Greedy MIS
       S_mis_no_ls, best_pc_mis_no_ls, total_time_mis_no_ls = solve(
         G_assigned, K, terminals_assigned, case=case_number, 
-        algorithm=extended_critical_node_mis, use_ls=False)
+        algorithm=extended_critical_node_mis_candidate, use_ls=False)
       
       S_mis_ls, best_pc_mis_ls, total_time_mis_ls = solve(
         G_assigned, K, terminals_assigned, case=case_number, 
-        algorithm=extended_critical_node_mis, use_ls=True)
+        algorithm=extended_critical_node_mis_candidate, use_ls=True)
       
       # Exact
-      S_exact, best_pc_exact, total_time_exact = solve_exact(
-        G_assigned, K, terminals_assigned, case=case_number, algorithm=solve_ecndp_pulp, 
+      start = time.perf_counter()
+      cpx, s_sol, x_sol, known_paths = solve_exact_from_excerpt(
+        G=G_assigned,
+        terminals=terminals_assigned,
+        K=K,
+        case=case_number
       )
+      end = time.perf_counter()
+      total_time_exact = end - start
+
+      exact_obj = -1
+
+      if cpx.solution.get_status_string() == "integer optimal solution":
+        exact_obj = cpx.solution.get_objective_value()
 
       for algo, best_pc, total_time in [
         (f'Greedy ES - no ls', best_pc_es_no_ls, total_time_es_no_ls),
@@ -103,7 +114,7 @@ for case_number in tqdm(CASES, desc="Cases", total=2):
         (f'Greedy MIS - no ls', best_pc_mis_no_ls, total_time_mis_no_ls),
         (f'Greedy MIS - ls', best_pc_mis_ls, total_time_mis_ls),
 
-        (f'Exact', best_pc_exact, total_time_exact),
+        (f'Exact', exact_obj, total_time_exact),
       ]:
         
         records.append({
@@ -118,8 +129,8 @@ for case_number in tqdm(CASES, desc="Cases", total=2):
           'time': f"{total_time:.5f}",
         })
 
-      SAVE_PATH_ROOT = "/home/tuguldur/Development/Research/Dev/ECNDP/Extended-Critical-Node-Detection-Problem/python/results/csv"
+      SAVE_PATH_ROOT = "/home/tuguldur/Development/Research/Dev/ECNDP/ECNDP/python/results/csv/on_real_graph"
 
       df = pd.DataFrame(records)
-      df.to_csv(f"{SAVE_PATH_ROOT}/Result_ECNDP_mammals_all.csv", index=False)
+      df.to_csv(f"{SAVE_PATH_ROOT}/Result_ECNDP_mammals_all_with_cplex.csv", index=False)
 

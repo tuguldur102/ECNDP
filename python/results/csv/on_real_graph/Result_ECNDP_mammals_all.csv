@@ -44,6 +44,9 @@ case,algo,terminals,non_terminals,K,obj,time
 2,Greedy MIS - no ls,38,13,5,207.0,0.13399
 2,Greedy MIS - ls,38,13,5,192.0,0.49375
 2,Exact,38,13,5,192.0,1.27821
+
+
+
 1,Greedy ES - no ls,15,36,10,2.0,0.11048
 1,Greedy ES - ls,15,36,10,2.0,0.18201
 1,Greedy MIS - no ls,15,36,10,1.0,2.52683
