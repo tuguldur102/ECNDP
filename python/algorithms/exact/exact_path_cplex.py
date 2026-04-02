@@ -182,7 +182,7 @@ def build_model_exact_from_excerpt(G, terminals, K, case):
   return cpx, s_idx, x_idx, known_paths
 
 
-def solve_exact_from_excerpt(G, terminals, K, case):
+def solve_exact_from_excerpt(G, terminals, K, case, log_output=False):
   cpx, s_idx, x_idx, known_paths = build_model_exact_from_excerpt(
     G=G,
     terminals=terminals,
@@ -190,16 +190,25 @@ def solve_exact_from_excerpt(G, terminals, K, case):
     case=case,
   )
 
+  if not log_output:
+    cpx.set_log_stream(None)
+    cpx.set_error_stream(None)
+    cpx.set_warning_stream(None)
+    cpx.set_results_stream(None)
+
   cpx.solve()
 
-  s_sol = {
-    i: cpx.solution.get_values(idx)
-    for i, idx in s_idx.items()
-  }
-  x_sol = {
-    pair: cpx.solution.get_values(idx)
-    for pair, idx in x_idx.items()
-  }
+  s_sol = {}
+  x_sol = {}
+
+  # s_sol = {
+  #   i: cpx.solution.get_values(idx)
+  #   for i, idx in s_idx.items()
+  # }
+  # x_sol = {
+  #   pair: cpx.solution.get_values(idx)
+  #   for pair, idx in x_idx.items()
+  # }
 
   return cpx, s_sol, x_sol, known_paths
 

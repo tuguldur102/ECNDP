@@ -1,0 +1,51 @@
+case,algo,terminals,non_terminals,K,obj,time
+1,Greedy ES - no ls,15,36,10,2.0,0.11153
+1,Greedy ES - ls,15,36,10,2.0,0.18016
+1,Greedy MIS - no ls,15,36,10,1.0,2.51584
+1,Greedy MIS - ls,15,36,10,1.0,7.25319
+1,Exact - path,15,36,10,1.0,0.03910
+1,Greedy ES - no ls,15,36,8,5.0,0.11229
+1,Greedy ES - ls,15,36,8,5.0,0.17268
+1,Greedy MIS - no ls,15,36,8,3.0,2.60140
+1,Greedy MIS - ls,15,36,8,3.0,6.61883
+1,Exact - path,15,36,8,3.0,0.02097
+1,Greedy ES - no ls,15,36,5,12.0,0.11432
+1,Greedy ES - ls,15,36,5,11.0,0.19157
+1,Greedy MIS - no ls,15,36,5,9.0,2.71359
+1,Greedy MIS - ls,15,36,5,9.0,5.65234
+1,Exact - path,15,36,5,9.0,0.01509
+1,Greedy ES - no ls,25,26,15,5.0,0.10339
+1,Greedy ES - ls,25,26,15,4.0,0.28740
+1,Greedy MIS - no ls,25,26,15,2.0,2.23901
+1,Greedy MIS - ls,25,26,15,2.0,11.00752
+1,Exact - path,25,26,15,2.0,0.04912
+1,Greedy ES - no ls,25,26,10,19.0,0.11056
+1,Greedy ES - ls,25,26,10,12.0,0.25490
+1,Greedy MIS - no ls,25,26,10,11.0,2.57457
+1,Greedy MIS - ls,25,26,10,10.0,9.76418
+1,Exact - path,25,26,10,10.0,0.02864
+1,Greedy ES - no ls,25,26,7,33.0,0.11131
+1,Greedy ES - ls,25,26,7,31.0,0.21874
+1,Greedy MIS - no ls,25,26,7,26.0,2.63719
+1,Greedy MIS - ls,25,26,7,26.0,7.83130
+1,Exact - path,25,26,7,26.0,0.08575
+1,Greedy ES - no ls,38,13,20,8.0,0.09632
+1,Greedy ES - ls,38,13,20,6.0,0.31401
+1,Greedy MIS - no ls,38,13,20,5.0,1.83230
+1,Greedy MIS - ls,38,13,20,5.0,11.04109
+1,Exact - path,38,13,20,5.0,0.04716
+1,Greedy ES - no ls,38,13,15,19.0,0.10551
+1,Greedy ES - ls,38,13,15,14.0,0.29772
+1,Greedy MIS - no ls,38,13,15,13.0,2.25887
+1,Greedy MIS - ls,38,13,15,13.0,11.41489
+1,Exact - path,38,13,15,13.0,0.03076
+1,Greedy ES - no ls,38,13,10,49.0,0.11058
+1,Greedy ES - ls,38,13,10,45.0,0.25461
+1,Greedy MIS - no ls,38,13,10,42.0,2.52487
+1,Greedy MIS - ls,38,13,10,42.0,9.04952
+1,Exact - path,38,13,10,42.0,0.26603
+2,Greedy ES - no ls,15,36,20,14.0,0.03986
+2,Greedy ES - ls,15,36,20,14.0,0.09505
+2,Greedy MIS - no ls,15,36,20,14.0,0.45548
+2,Greedy MIS - ls,15,36,20,14.0,5.22552
+2,Exact - path,15,36,20,14.0,0.00753

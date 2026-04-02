@@ -2,9 +2,10 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from algorithms.compute_PC import compute_pc
 from algorithms.exact.exact_path_cplex import solve_exact_from_excerpt
+from algorithms.exact.exact_formulation import solve_ecndp
 from algorithms.greedy.greedy_empty_set import extended_critical_node_empty_set
 from algorithms.greedy.greedy_mis_candidate import extended_critical_node_mis_candidate
-from utils.utils import assign_terminals_randomly, assign_terminals, create_custom_graph_extreme, create_custom_graph_with_2_comps, create_mammals_graph, solve, solve_exact
+from utils.utils import assign_terminals_randomly, assign_terminals, create_mammals_graph, solve
 from tqdm import tqdm
 import time
 import pandas as pd
@@ -91,7 +92,24 @@ for case_number in tqdm(CASES, desc="Cases", total=2):
         G_assigned, K, terminals_assigned, case=case_number, 
         algorithm=extended_critical_node_mis_candidate, use_ls=True)
       
-      # Exact
+      # Exact - classics
+      # start = time.perf_counter()
+      # exact_res = solve_ecndp(
+      #     G=G_assigned,
+      #     terminals=terminals_assigned,
+      #     budget=K,
+      #     case=case_number,
+      #     time_limit=None,
+      #     log_output=False
+      # )
+      # end = time.perf_counter()
+      # total_time_exact = end - start
+
+      # exact_obj = - 1
+      # if exact_res["solve_status"] == "integer optimal solution":
+      #   exact_obj = exact_res["objective_value"]
+
+      # Exact - path formulation
       start = time.perf_counter()
       cpx, s_sol, x_sol, known_paths = solve_exact_from_excerpt(
         G=G_assigned,
@@ -100,12 +118,12 @@ for case_number in tqdm(CASES, desc="Cases", total=2):
         case=case_number
       )
       end = time.perf_counter()
-      total_time_exact = end - start
+      total_time_exact_path = end - start
 
-      exact_obj = -1
+      exact_obj_path = -1
 
       if cpx.solution.get_status_string() == "integer optimal solution":
-        exact_obj = cpx.solution.get_objective_value()
+        exact_obj_path = cpx.solution.get_objective_value()
 
       for algo, best_pc, total_time in [
         (f'Greedy ES - no ls', best_pc_es_no_ls, total_time_es_no_ls),
@@ -114,7 +132,8 @@ for case_number in tqdm(CASES, desc="Cases", total=2):
         (f'Greedy MIS - no ls', best_pc_mis_no_ls, total_time_mis_no_ls),
         (f'Greedy MIS - ls', best_pc_mis_ls, total_time_mis_ls),
 
-        (f'Exact', exact_obj, total_time_exact),
+        # (f'Exact', exact_obj, total_time_exact),
+        (f'Exact - path', exact_obj_path, total_time_exact_path),
       ]:
         
         records.append({
@@ -132,5 +151,5 @@ for case_number in tqdm(CASES, desc="Cases", total=2):
       SAVE_PATH_ROOT = "/home/tuguldur/Development/Research/Dev/ECNDP/ECNDP/python/results/csv/on_real_graph"
 
       df = pd.DataFrame(records)
-      df.to_csv(f"{SAVE_PATH_ROOT}/Result_ECNDP_mammals_all_with_cplex.csv", index=False)
+      df.to_csv(f"{SAVE_PATH_ROOT}/Result_ECNDP_mammals_all_with_cplex_max_iter_2.csv", index=False)
 

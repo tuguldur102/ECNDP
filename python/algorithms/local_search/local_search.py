@@ -6,6 +6,7 @@ def local_search_procedure(
     G, S, terminals, 
     case: Literal[1, 2], 
     improvement_condition: Callable[[nx.Graph, Set, int, List], bool], 
+    max_iter: int  = 2
     ):
 
   V = set(G.nodes())
@@ -17,6 +18,7 @@ def local_search_procedure(
   K = set(V - S)
 
   curr_pc = obj(G, K, terminals)
+  iteration = 0
   local_improvement = True
 
   if case == 1:
@@ -25,7 +27,7 @@ def local_search_procedure(
     # terminals cannot be removed
     current_nodes = list(V - T)
   
-  while local_improvement:
+  while local_improvement and iteration < max_iter:
     local_improvement = False
     best_K = set(K)
 
@@ -44,7 +46,10 @@ def local_search_procedure(
     
     if improvement_condition(G, best_K, curr_pc, terminals):
       K = set(best_K)
+      curr_pc = obj(G, K, terminals)
       local_improvement = True
 
-    return V - K
+    iteration += 1
+
+  return V - K
 

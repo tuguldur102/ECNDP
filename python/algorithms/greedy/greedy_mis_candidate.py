@@ -124,7 +124,8 @@ def extended_critical_node_mis_candidate(
         G, S, 
         terminals=terminals, 
         case=case,
-        improvement_condition=improvement_condition)
+        improvement_condition=improvement_condition,
+        max_iter=2)
       
       curr_S = set(S_ls)
     
