@@ -7,7 +7,7 @@ import pandas as pd
 from tqdm import tqdm
 
 from algorithms.compute_PC import compute_pc
-from algorithms.exact.exact_formulation import solve_ecndp
+from algorithms.exact.exact_formulation import solve_ecndp_cplex
 from algorithms.exact.exact_path_cplex import solve_exact_from_excerpt
 from algorithms.greedy.greedy_empty_set import extended_critical_node_empty_set
 from algorithms.greedy.greedy_mis_candidate import extended_critical_node_mis_candidate
@@ -15,14 +15,15 @@ from utils.assign_terminals import generate_terminals_with_fallback
 from utils.utils import solve
 
 SEED = 1
-NODE_SIZES = [75, 100, 150]
-MAX_REPETITION = 1
+NODE_SIZES = [75]
+MAX_REPETITION = 5
 CONSTANT_EXACT = True
 
-TIME_LIMIT = None
+TEST = "2_reverse"
+TIME_LIMIT = 1000
 TERMINAL_BUDGETS = [5, 10, 15, 20, 30, 40, 50]
 K_BUDGETS = [30, 20, 10]
-CASES = [1, 2]
+CASES = [2, 1]
 
 SAVE_ROOT = Path(
   "/home/tuguldur/Development/Research/Dev/ECNDP/ECNDP/python/results/csv/on_real_graph"
@@ -62,7 +63,7 @@ def run_greedy(graph, budget_k, terminals_assigned, case_number, algorithm):
 def run_exact(graph, budget_k, terminals_assigned, case_number):
   start_time = time.perf_counter()
 
-  exact_result = solve_ecndp(
+  exact_result = solve_ecndp_cplex(
     G=graph,
     terminals=terminals_assigned,
     budget=budget_k,
@@ -73,35 +74,38 @@ def run_exact(graph, budget_k, terminals_assigned, case_number):
 
   total_time = time.perf_counter() - start_time
 
-  objective_value = -1
-  if exact_result["solve_status"] == "integer optimal solution":
-    objective_value = exact_result["objective_value"]
+  # objective_value = -1
+  # if exact_result["solve_status"] == "integer optimal solution":
+  exact_result_status = exact_result.solution.get_status_string()
+  objective_value = exact_result.solution.get_objective_value()
 
-  return objective_value, total_time
+  return exact_result_status, objective_value, total_time
 
 
 def run_exact_path(graph, budget_k, terminals_assigned, case_number):
   start_time = time.perf_counter()
 
-  cplex_model, _, _, _ = solve_exact_from_excerpt(
+  result_path, _, _, _ = solve_exact_from_excerpt(
     G=graph,
     terminals=terminals_assigned,
     K=budget_k,
     case=case_number,
+    time_limit=TIME_LIMIT,
     log_output=False
   )
 
   total_time = time.perf_counter() - start_time
 
-  objective_value = -1
-  if cplex_model.solution.get_status_string() == "integer optimal solution":
-    objective_value = cplex_model.solution.get_objective_value()
+  # objective_value = -1
+  # if result_path.solution.get_status_string() == "integer optimal solution":
+  exact_result_status = result_path.solution.get_status_string()
+  objective_value = result_path.solution.get_objective_value()
 
-  return objective_value, total_time
+  return exact_result_status, objective_value, total_time
 
 
 for total_nodes in NODE_SIZES:
-  save_path = SAVE_ROOT / f"Result_ECNDP_all_with_{total_nodes}_{MAX_REPETITION}_reps.csv"
+  save_path = SAVE_ROOT / f"Result_ECNDP_all_with_{total_nodes}_{MAX_REPETITION}_reps_{TEST}.csv"
 
   terminal_node_budgets = build_budget_map(
     total_nodes,
@@ -152,13 +156,13 @@ for total_nodes in NODE_SIZES:
         graph_assigned = graph_models["ER"].copy()
 
         results = {
-          "Greedy ES - ls": {"obj": [], "time": []},
-          "Greedy MIS - ls": {"obj": [], "time": []},
+          "Greedy ES - ls": {"sol_status": [], "obj": [], "time": []},
+          "Greedy MIS - ls": {"sol_status": [], "obj": [], "time": []},
         }
 
-        results["Exact - path"] = {"obj": [], "time": []}
+        results["Exact - path"] = {"sol_status": [], "obj": [], "time": []}
         if CONSTANT_EXACT:
-          results["Exact"] = {"obj": [], "time": []}
+          results["Exact"] = {"sol_status": [], "obj": [], "time": []}
 
         success_count = 0
 
@@ -199,21 +203,23 @@ for total_nodes in NODE_SIZES:
             results["Greedy MIS - ls"]["time"].append(total_time)
 
             if CONSTANT_EXACT:
-              objective_value, total_time = run_exact(
+              sol_status, objective_value, total_time = run_exact(
                 graph_assigned,
                 budget_k,
                 terminals_assigned,
                 case_number
               )
+              results["Exact"]["sol_status"].append(sol_status)
               results["Exact"]["obj"].append(objective_value)
               results["Exact"]["time"].append(total_time)
 
-            objective_value, total_time = run_exact_path(
+            sol_status, objective_value, total_time = run_exact_path(
               graph_assigned,
               budget_k,
               terminals_assigned,
               case_number
             )
+            results["Exact - path"]["sol_status"].append(sol_status)
             results["Exact - path"]["obj"].append(objective_value)
             results["Exact - path"]["time"].append(total_time)
 
@@ -235,6 +241,7 @@ for total_nodes in NODE_SIZES:
             "K": budget_k,
             "ave_obj": sum(algorithm_result["obj"]) / len(algorithm_result["obj"]) if not len(algorithm_result["obj"]) == 0 else 0,
             "ave_time": f"{sum(algorithm_result["time"]) / len(algorithm_result["time"]):.5f}" if not len(algorithm_result["time"]) == 0 else 0,
+            "sol_status": algorithm_result["sol_status"],
             "obj": algorithm_result["obj"],
             "time": algorithm_result["time"],
           })

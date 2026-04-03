@@ -2,7 +2,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from algorithms.compute_PC import compute_pc
 from algorithms.exact.exact_path_cplex import solve_exact_from_excerpt
-from algorithms.exact.exact_formulation import solve_ecndp
+from algorithms.exact.exact_formulation import solve_ecndp_cplex
 from algorithms.greedy.greedy_empty_set import extended_critical_node_empty_set
 from algorithms.greedy.greedy_mis_candidate import extended_critical_node_mis_candidate
 from utils.utils import assign_terminals_randomly, assign_terminals, create_mammals_graph, solve

@@ -1,8 +1,9 @@
-from itertools import combinations
+import cplex
 import networkx as nx
-from docplex.mp.model import Model
+from itertools import combinations
 
-def solve_ecndp(
+
+def solve_ecndp_cplex(
   G,
   terminals,
   budget,
@@ -10,7 +11,6 @@ def solve_ecndp(
   time_limit=None,
   log_output=True
 ):
-
   vertex_list = list(G.nodes())
   vertex_set = set(vertex_list)
   terminal_set = set(terminals)
@@ -44,135 +44,181 @@ def solve_ecndp(
     for first_terminal, second_terminal in combinations(terminal_set, 2)
   ]
 
-  model = Model(name="ECNDP")
+  cpx = cplex.Cplex()
+  cpx.objective.set_sense(cpx.objective.sense.minimize)
+
+  if not log_output:
+    cpx.set_log_stream(None)
+    cpx.set_error_stream(None)
+    cpx.set_warning_stream(None)
+    cpx.set_results_stream(None)
 
   if time_limit is not None:
-    model.parameters.timelimit = time_limit
+    cpx.parameters.timelimit.set(time_limit)
 
-  remove_vertex = model.binary_var_dict(
-    vertex_list,
-    name="remove_vertex"
+  remove_vertex_names = [f"remove_vertex_{vertex}" for vertex in vertex_list]
+  cpx.variables.add(
+    names=remove_vertex_names,
+    lb=[0.0] * len(vertex_list),
+    ub=[1.0] * len(vertex_list),
+    types=["B"] * len(vertex_list),
+    obj=[0.0] * len(vertex_list)
   )
+  remove_vertex_idx = {
+    vertex: cpx.variables.get_indices(f"remove_vertex_{vertex}")
+    for vertex in vertex_list
+  }
 
-  same_component = model.binary_var_dict(
-    unordered_vertex_pairs,
-    name="same_component"
+  same_component_names = [
+    f"same_component_{first_vertex}_{second_vertex}"
+    for first_vertex, second_vertex in unordered_vertex_pairs
+  ]
+  same_component_obj = [
+    1.0 if pairwise_connectivity in terminal_pairs else 0.0
+    for pairwise_connectivity in unordered_vertex_pairs
+  ]
+  cpx.variables.add(
+    names=same_component_names,
+    lb=[0.0] * len(unordered_vertex_pairs),
+    ub=[1.0] * len(unordered_vertex_pairs),
+    types=["B"] * len(unordered_vertex_pairs),
+    obj=same_component_obj
   )
-
-  # Objective - minimize sum of x_ij over terminal pairs
-  model.minimize(
-    model.sum(
-      same_component[pairwise_connectivity]
-      for pairwise_connectivity in terminal_pairs
+  same_component_idx = {
+    pairwise_connectivity: cpx.variables.get_indices(
+      f"same_component_{pairwise_connectivity[0]}_{pairwise_connectivity[1]}"
     )
-  )
+    for pairwise_connectivity in unordered_vertex_pairs
+  }
 
   # Budget constraint
   if case == 1:
-    model.add_constraint(
-      model.sum(remove_vertex[vertex] for vertex in vertex_list) <= budget,
-      ctname="budget"
+    cpx.linear_constraints.add(
+      lin_expr=[cplex.SparsePair(
+        ind=[remove_vertex_idx[vertex] for vertex in vertex_list],
+        val=[1.0] * len(vertex_list)
+      )],
+      senses=["L"],
+      rhs=[float(budget)],
+      names=["budget"]
     )
   else:
-    non_terminal_vertices = [vertex for vertex in vertex_list if vertex not in terminal_set]
-    model.add_constraint(
-      model.sum(remove_vertex[vertex] for vertex in non_terminal_vertices) <= budget,
-      ctname="budget_non_terminals"
+    non_terminal_vertices = [
+      vertex for vertex in vertex_list if vertex not in terminal_set
+    ]
+    cpx.linear_constraints.add(
+      lin_expr=[cplex.SparsePair(
+        ind=[remove_vertex_idx[vertex] for vertex in non_terminal_vertices],
+        val=[1.0] * len(non_terminal_vertices)
+      )],
+      senses=["L"],
+      rhs=[float(budget)],
+      names=["budget_non_terminals"]
     )
+
     for terminal_vertex in terminal_set:
-      model.add_constraint(
-        remove_vertex[terminal_vertex] == 0,
-        ctname=f"terminal_not_removed_{terminal_vertex}"
+      cpx.linear_constraints.add(
+        lin_expr=[cplex.SparsePair(
+          ind=[remove_vertex_idx[terminal_vertex]],
+          val=[1.0]
+        )],
+        senses=["E"],
+        rhs=[0.0],
+        names=[f"terminal_not_removed_{terminal_vertex}"]
       )
 
   # Edge constraints:
+  # same_component[u,v] >= 1 - remove_vertex[u] - remove_vertex[v]
+  # equivalent: same_component[u,v] + remove_vertex[u] + remove_vertex[v] >= 1
   for first_vertex, second_vertex in normalized_edges:
-    model.add_constraint(
-      same_component[(first_vertex, second_vertex)] >=
-      1 - remove_vertex[first_vertex] - remove_vertex[second_vertex]
+    cpx.linear_constraints.add(
+      lin_expr=[cplex.SparsePair(
+        ind=[
+          same_component_idx[(first_vertex, second_vertex)],
+          remove_vertex_idx[first_vertex],
+          remove_vertex_idx[second_vertex]
+        ],
+        val=[1.0, 1.0, 1.0]
+      )],
+      senses=["G"],
+      rhs=[1.0]
     )
 
   # Deleted-vertex constraints:
+  # same_component[u,v] <= 1 - remove_vertex[u]
+  # equivalent: same_component[u,v] + remove_vertex[u] <= 1
   for first_vertex, second_vertex in unordered_vertex_pairs:
-    model.add_constraint(
-      same_component[(first_vertex, second_vertex)] <= 1 - remove_vertex[first_vertex]
+    cpx.linear_constraints.add(
+      lin_expr=[cplex.SparsePair(
+        ind=[
+          same_component_idx[(first_vertex, second_vertex)],
+          remove_vertex_idx[first_vertex]
+        ],
+        val=[1.0, 1.0]
+      )],
+      senses=["L"],
+      rhs=[1.0]
     )
-    model.add_constraint(
-      same_component[(first_vertex, second_vertex)] <= 1 - remove_vertex[second_vertex]
+
+    cpx.linear_constraints.add(
+      lin_expr=[cplex.SparsePair(
+        ind=[
+          same_component_idx[(first_vertex, second_vertex)],
+          remove_vertex_idx[second_vertex]
+        ],
+        val=[1.0, 1.0]
+      )],
+      senses=["L"],
+      rhs=[1.0]
     )
 
   # Transitivity constraints
+  # x_ac >= x_ab + x_bc - 1
+  # equivalent: x_ab + x_bc - x_ac <= 1
   for first_vertex, second_vertex, third_vertex in combinations(vertex_list, 3):
     pair_ab = unordered_pair(first_vertex, second_vertex)
     pair_ac = unordered_pair(first_vertex, third_vertex)
     pair_bc = unordered_pair(second_vertex, third_vertex)
 
-    model.add_constraint(
-      same_component[pair_ac] >=
-      same_component[pair_ab] + same_component[pair_bc] - 1
+    cpx.linear_constraints.add(
+      lin_expr=[cplex.SparsePair(
+        ind=[
+          same_component_idx[pair_ab],
+          same_component_idx[pair_bc],
+          same_component_idx[pair_ac]
+        ],
+        val=[1.0, 1.0, -1.0]
+      )],
+      senses=["L"],
+      rhs=[1.0]
     )
-    model.add_constraint(
-      same_component[pair_ab] >=
-      same_component[pair_ac] + same_component[pair_bc] - 1
+
+    cpx.linear_constraints.add(
+      lin_expr=[cplex.SparsePair(
+        ind=[
+          same_component_idx[pair_ac],
+          same_component_idx[pair_bc],
+          same_component_idx[pair_ab]
+        ],
+        val=[1.0, 1.0, -1.0]
+      )],
+      senses=["L"],
+      rhs=[1.0]
     )
-    model.add_constraint(
-      same_component[pair_bc] >=
-      same_component[pair_ab] + same_component[pair_ac] - 1
+
+    cpx.linear_constraints.add(
+      lin_expr=[cplex.SparsePair(
+        ind=[
+          same_component_idx[pair_ab],
+          same_component_idx[pair_ac],
+          same_component_idx[pair_bc]
+        ],
+        val=[1.0, 1.0, -1.0]
+      )],
+      senses=["L"],
+      rhs=[1.0]
     )
 
-  solution = model.solve(log_output=log_output)
+  cpx.solve()
 
-  if solution is None:
-    return {
-      "objective_value": None,
-      "removed_vertices": [],
-      "same_component_pairs": [],
-      "solve_status": str(model.solve_details.status)
-    }
-
-  # removed_vertices = [
-  #   vertex
-  #   for vertex in vertex_list
-  #   if solution.get_value(remove_vertex[vertex]) > 0.5
-  # ]
-
-  # same_component_pairs = [
-  #   pairwise_connectivity
-  #   for pairwise_connectivity in unordered_vertex_pairs
-  #   if solution.get_value(same_component[pairwise_connectivity]) > 0.5
-  # ]
-
-  return {
-    "objective_value": solution.objective_value,
-    "removed_vertices": [],
-    "same_component_pairs": [],
-    "solve_status": str(model.solve_details.status)
-  }
-
-
-# if __name__ == "__main__":
-#   G = nx.Graph()
-#   G.add_edges_from([
-#     (1, 2),
-#     (2, 3),
-#     (3, 4),
-#     (4, 5),
-#     (1, 5),
-#     (2, 4)
-#   ])
-
-#   terminals = [1, 3, 5]
-#   budget = 1
-
-#   result = solve_ecndp(
-#     G=G,
-#     terminals=terminals,
-#     budget=budget,
-#     case=2,
-#     time_limit=60
-#   )
-
-#   print("status:", result["solve_status"])
-#   print("objective value:", result["objective_value"])
-  # print("removed vertices:", result["removed_vertices"])
-  # print("same-component pairs:", result["same_component_pairs"])
+  return cpx

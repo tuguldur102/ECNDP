@@ -1,51 +1,91 @@
 case,algo,terminals,non_terminals,K,obj,time
-1,Greedy ES - no ls,15,36,10,2.0,0.11153
-1,Greedy ES - ls,15,36,10,2.0,0.18016
-1,Greedy MIS - no ls,15,36,10,1.0,2.51584
-1,Greedy MIS - ls,15,36,10,1.0,7.25319
-1,Exact - path,15,36,10,1.0,0.03910
-1,Greedy ES - no ls,15,36,8,5.0,0.11229
-1,Greedy ES - ls,15,36,8,5.0,0.17268
-1,Greedy MIS - no ls,15,36,8,3.0,2.60140
-1,Greedy MIS - ls,15,36,8,3.0,6.61883
-1,Exact - path,15,36,8,3.0,0.02097
-1,Greedy ES - no ls,15,36,5,12.0,0.11432
-1,Greedy ES - ls,15,36,5,11.0,0.19157
-1,Greedy MIS - no ls,15,36,5,9.0,2.71359
-1,Greedy MIS - ls,15,36,5,9.0,5.65234
-1,Exact - path,15,36,5,9.0,0.01509
-1,Greedy ES - no ls,25,26,15,5.0,0.10339
-1,Greedy ES - ls,25,26,15,4.0,0.28740
-1,Greedy MIS - no ls,25,26,15,2.0,2.23901
-1,Greedy MIS - ls,25,26,15,2.0,11.00752
-1,Exact - path,25,26,15,2.0,0.04912
-1,Greedy ES - no ls,25,26,10,19.0,0.11056
-1,Greedy ES - ls,25,26,10,12.0,0.25490
-1,Greedy MIS - no ls,25,26,10,11.0,2.57457
-1,Greedy MIS - ls,25,26,10,10.0,9.76418
-1,Exact - path,25,26,10,10.0,0.02864
-1,Greedy ES - no ls,25,26,7,33.0,0.11131
-1,Greedy ES - ls,25,26,7,31.0,0.21874
-1,Greedy MIS - no ls,25,26,7,26.0,2.63719
-1,Greedy MIS - ls,25,26,7,26.0,7.83130
-1,Exact - path,25,26,7,26.0,0.08575
-1,Greedy ES - no ls,38,13,20,8.0,0.09632
-1,Greedy ES - ls,38,13,20,6.0,0.31401
-1,Greedy MIS - no ls,38,13,20,5.0,1.83230
-1,Greedy MIS - ls,38,13,20,5.0,11.04109
-1,Exact - path,38,13,20,5.0,0.04716
-1,Greedy ES - no ls,38,13,15,19.0,0.10551
-1,Greedy ES - ls,38,13,15,14.0,0.29772
-1,Greedy MIS - no ls,38,13,15,13.0,2.25887
-1,Greedy MIS - ls,38,13,15,13.0,11.41489
-1,Exact - path,38,13,15,13.0,0.03076
-1,Greedy ES - no ls,38,13,10,49.0,0.11058
-1,Greedy ES - ls,38,13,10,45.0,0.25461
-1,Greedy MIS - no ls,38,13,10,42.0,2.52487
-1,Greedy MIS - ls,38,13,10,42.0,9.04952
-1,Exact - path,38,13,10,42.0,0.26603
-2,Greedy ES - no ls,15,36,20,14.0,0.03986
-2,Greedy ES - ls,15,36,20,14.0,0.09505
-2,Greedy MIS - no ls,15,36,20,14.0,0.45548
-2,Greedy MIS - ls,15,36,20,14.0,5.22552
-2,Exact - path,15,36,20,14.0,0.00753
+1,Greedy ES - no ls,15,36,10,2.0,0.11028
+1,Greedy ES - ls,15,36,10,2.0,0.24831
+1,Greedy MIS - no ls,15,36,10,1.0,2.47742
+1,Greedy MIS - ls,15,36,10,1.0,9.68086
+1,Exact - path,15,36,10,1.0,0.05634
+1,Greedy ES - no ls,15,36,8,5.0,0.10968
+1,Greedy ES - ls,15,36,8,5.0,0.22773
+1,Greedy MIS - no ls,15,36,8,3.0,2.56343
+1,Greedy MIS - ls,15,36,8,3.0,8.62232
+1,Exact - path,15,36,8,3.0,0.02022
+1,Greedy ES - no ls,15,36,5,12.0,0.11148
+1,Greedy ES - ls,15,36,5,11.0,0.19004
+1,Greedy MIS - no ls,15,36,5,9.0,2.65223
+1,Greedy MIS - ls,15,36,5,9.0,6.76155
+1,Exact - path,15,36,5,9.0,0.01445
+1,Greedy ES - no ls,25,26,15,5.0,0.10494
+1,Greedy ES - ls,25,26,15,4.0,0.29097
+1,Greedy MIS - no ls,25,26,15,2.0,2.21088
+1,Greedy MIS - ls,25,26,15,2.0,11.76301
+1,Exact - path,25,26,15,2.0,0.06695
+1,Greedy ES - no ls,25,26,10,19.0,0.10885
+1,Greedy ES - ls,25,26,10,12.0,0.24869
+1,Greedy MIS - no ls,25,26,10,11.0,2.49084
+1,Greedy MIS - ls,25,26,10,10.0,9.76236
+1,Exact - path,25,26,10,10.0,0.02911
+1,Greedy ES - no ls,25,26,7,33.0,0.11156
+1,Greedy ES - ls,25,26,7,31.0,0.22033
+1,Greedy MIS - no ls,25,26,7,26.0,2.64525
+1,Greedy MIS - ls,25,26,7,26.0,8.09559
+1,Exact - path,25,26,7,26.0,0.08614
+1,Greedy ES - no ls,38,13,20,8.0,0.09712
+1,Greedy ES - ls,38,13,20,6.0,0.31787
+1,Greedy MIS - no ls,38,13,20,5.0,1.84635
+1,Greedy MIS - ls,38,13,20,5.0,13.24704
+1,Exact - path,38,13,20,5.0,0.04743
+1,Greedy ES - no ls,38,13,15,19.0,0.10510
+1,Greedy ES - ls,38,13,15,14.0,0.29771
+1,Greedy MIS - no ls,38,13,15,13.0,2.22194
+1,Greedy MIS - ls,38,13,15,13.0,11.91515
+1,Exact - path,38,13,15,13.0,0.03126
+1,Greedy ES - no ls,38,13,10,49.0,0.11121
+1,Greedy ES - ls,38,13,10,45.0,0.25851
+1,Greedy MIS - no ls,38,13,10,42.0,2.54063
+1,Greedy MIS - ls,38,13,10,42.0,9.86418
+1,Exact - path,38,13,10,42.0,0.26984
+2,Greedy ES - no ls,15,36,20,14.0,0.03985
+2,Greedy ES - ls,15,36,20,14.0,0.15306
+2,Greedy MIS - no ls,15,36,20,14.0,0.45796
+2,Greedy MIS - ls,15,36,20,14.0,6.09071
+2,Exact - path,15,36,20,14.0,0.00745
+2,Greedy ES - no ls,15,36,15,14.0,0.04803
+2,Greedy ES - ls,15,36,15,14.0,0.15892
+2,Greedy MIS - no ls,15,36,15,14.0,0.86392
+2,Greedy MIS - ls,15,36,15,14.0,6.59771
+2,Exact - path,15,36,15,14.0,0.00742
+2,Greedy ES - no ls,15,36,10,15.0,0.05408
+2,Greedy ES - ls,15,36,10,15.0,0.14611
+2,Greedy MIS - no ls,15,36,10,14.0,1.16005
+2,Greedy MIS - ls,15,36,10,14.0,5.79693
+2,Exact - path,15,36,10,14.0,0.00716
+2,Greedy ES - no ls,25,26,15,75.0,0.02037
+2,Greedy ES - ls,25,26,15,75.0,0.07842
+2,Greedy MIS - no ls,25,26,15,75.0,0.22248
+2,Greedy MIS - ls,25,26,15,75.0,3.03343
+2,Exact - path,25,26,15,75.0,0.01042
+2,Greedy ES - no ls,25,26,10,75.0,0.02615
+2,Greedy ES - ls,25,26,10,75.0,0.08223
+2,Greedy MIS - no ls,25,26,10,75.0,0.51341
+2,Greedy MIS - ls,25,26,10,75.0,3.37800
+2,Exact - path,25,26,10,75.0,0.01070
+2,Greedy ES - no ls,25,26,7,81.0,0.03037
+2,Greedy ES - ls,25,26,7,81.0,0.07537
+2,Greedy MIS - no ls,25,26,7,78.0,0.63580
+2,Greedy MIS - ls,25,26,7,78.0,3.04442
+2,Exact - path,25,26,7,78.0,0.01487
+2,Greedy ES - no ls,38,13,10,178.0,0.00324
+2,Greedy ES - ls,38,13,10,178.0,0.01379
+2,Greedy MIS - no ls,38,13,10,178.0,0.00830
+2,Greedy MIS - ls,38,13,10,178.0,0.60180
+2,Exact - path,38,13,10,178.0,0.01684
+2,Greedy ES - no ls,38,13,8,178.0,0.00500
+2,Greedy ES - ls,38,13,8,178.0,0.01920
+2,Greedy MIS - no ls,38,13,8,178.0,0.02920
+2,Greedy MIS - ls,38,13,8,178.0,0.66853
+2,Exact - path,38,13,8,178.0,0.01684
+2,Greedy ES - no ls,38,13,5,192.0,0.00680
+2,Greedy ES - ls,38,13,5,192.0,0.02086
+2,Greedy MIS - no ls,38,13,5,192.0,0.10978
+2,Greedy MIS - ls,38,13,5,192.0,0.78510
+2,Exact - path,38,13,5,192.0,0.01751

@@ -5,7 +5,7 @@ from typing import Optional, Callable, List, Set, Literal
 def local_search_procedure(
     G, S, terminals, 
     case: Literal[1, 2], 
-    improvement_condition: Callable[[nx.Graph, Set, int, List], bool], 
+    improvement_condition: Callable[[nx.Graph, Set, int, List], bool] = None, 
     max_iter: int  = 2
     ):
 
@@ -17,9 +17,8 @@ def local_search_procedure(
   # K is MIS
   K = set(V - S)
 
-  curr_pc = obj(G, K, terminals)
   iteration = 0
-  local_improvement = True
+  # local_improvement = True
 
   if case == 1:
     current_nodes = list(V)
@@ -27,8 +26,8 @@ def local_search_procedure(
     # terminals cannot be removed
     current_nodes = list(V - T)
   
-  while local_improvement and iteration < max_iter:
-    local_improvement = False
+  while iteration < max_iter:
+    # local_improvement = False
     best_K = set(K)
 
     for i in current_nodes:
@@ -43,13 +42,15 @@ def local_search_procedure(
           else:
             K.remove(j)
             K.add(i)
-    
-    if improvement_condition(G, best_K, curr_pc, terminals):
-      K = set(best_K)
-      curr_pc = obj(G, K, terminals)
-      local_improvement = True
-
+      
+    K = set(best_K)
     iteration += 1
+    
+    # if improvement_condition(G, best_K, curr_pc, terminals):
+    #   K = set(best_K)
+    #   curr_pc = obj(G, K, terminals)
+    #   local_improvement = True
+
 
   return V - K
 

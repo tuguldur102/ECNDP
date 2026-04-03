@@ -69,7 +69,8 @@ def extended_critical_node_empty_set(
       G, S, 
       terminals=terminals, 
       case=case, 
-      improvement_condition=improvement_condition)
+      improvement_condition=improvement_condition,
+      max_iter=2)
     
     curr_S = set(S_ls)
   
