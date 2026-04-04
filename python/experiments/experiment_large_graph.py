@@ -27,7 +27,7 @@ MAX_REPETITION = 5
 CONSTANT_EXACT = False
 INCLUDE_EXACT_PATH = False
 
-TEST = "large_graphs"
+TEST = "large_graphs_reverse"
 TIME_LIMIT = 1000
 TERMINAL_BUDGETS = [
   # 5, 
@@ -40,7 +40,7 @@ TERMINAL_BUDGETS = [
   ]
 
 K_BUDGETS = [20, 30]
-CASES = [1, 2]
+CASES = [2, 1]
 
 SAVE_ROOT = Path(
   "/home/tuguldur/Development/Research/Dev/ECNDP/ECNDP/python/results/csv/random_graph"
