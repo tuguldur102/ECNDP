@@ -145,15 +145,18 @@ def draw_graph(G, terminals):
   nx.draw(G, node_color=color_map, with_labels=True)
   plt.show()
 
-def solve(G, k, terminals, case, algorithm, use_ls):
+def solve(G, k, terminals, maxIter, case, algorithm, use_tqdm, use_ls, ls_iter):
 
   # curr_pc = compute_pc(G, set(), terminal_nodes=terminals)
 
   # algorithm
-  maxIter = len(G.nodes())
+  maxIter = maxIter
 
   start = time.perf_counter()
-  S, best_pc = algorithm(G, terminals, k, case, maxIter, use_ls=use_ls)
+  S, best_pc = algorithm(
+    G, terminals, k, case, maxIter, 
+    use_tqdm=use_tqdm, use_ls=use_ls, max_iter=ls_iter)
+  
   end = time.perf_counter()
   total_time = end - start
 

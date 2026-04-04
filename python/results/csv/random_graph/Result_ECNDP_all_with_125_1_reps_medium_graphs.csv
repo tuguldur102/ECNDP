@@ -1,0 +1,4 @@
+nodes,case,algo,terminals,non_terminals,K,ave_obj,ave_time,sol_status,obj,time
+125,1,Greedy ES - ls,38,87,11,276.0,2.12616,[],[276],[2.1261586359996727]
+125,1,Greedy MIS - ls,38,87,11,253.0,136.84196,[],[253],[136.84196424699985]
+125,1,Exact - path,38,87,11,253.0,360.28107,['integer optimal solution'],[253.0],[360.2810735490002]

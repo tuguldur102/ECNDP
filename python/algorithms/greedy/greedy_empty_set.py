@@ -50,7 +50,8 @@ def greedy_empty_set(
   return S
 
 def extended_critical_node_empty_set(
-    G, terminals, k, case, maxIter, use_ls: False):
+    G, terminals, k, case, maxIter, 
+    use_tqdm: False, use_ls: False, max_iter=2):
   
   S = None
   best_S = None
@@ -70,7 +71,7 @@ def extended_critical_node_empty_set(
       terminals=terminals, 
       case=case, 
       improvement_condition=improvement_condition,
-      max_iter=2)
+      max_iter=max_iter)
     
     curr_S = set(S_ls)
   

@@ -104,13 +104,19 @@ def greedy_mis_cand(
     return S
 
 def extended_critical_node_mis_candidate(
-    G, terminals, k, case, maxIter, use_ls: False):
+    G, terminals, k, case, maxIter, 
+    use_tqdm: False, use_ls: False, max_iter=2):
   
   S = None
   best_S = None
   best_pc = float("inf")
 
-  for _ in range(maxIter):
+  if use_tqdm:
+    iter = tqdm(range(maxIter), desc="MIS greedy", total=maxIter)
+  else:
+    iter = range(maxIter)
+
+  for _ in iter:
 
     curr_S = None
 
@@ -125,7 +131,7 @@ def extended_critical_node_mis_candidate(
         terminals=terminals, 
         case=case,
         improvement_condition=improvement_condition,
-        max_iter=2)
+        max_iter=max_iter)
       
       curr_S = set(S_ls)
     
